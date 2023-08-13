@@ -46,6 +46,11 @@ Note, these need to be edited to have chr prefixed to the chromosome names if yo
 
 Run the script build_star_index.sh to create the index.
 
+### Aligning Reads
+
+As an example, we have code that aligns reads from WT 01. Using the files from the index building step, you can call
+align_WT_01.sh. This will create a .bam file as well as a .bam.bai file.
+
 
 
 
