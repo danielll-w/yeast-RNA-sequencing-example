@@ -46,10 +46,37 @@ Note, these need to be edited to have chr prefixed to the chromosome names if yo
 
 Run the script build_star_index.sh to create the index.
 
-### Aligning Reads
+### Aligning Reads for IGV
 
 As an example, we have code that aligns reads from WT 01. Using the files from the index building step, you can call
-align_WT_01.sh. This will create a .bam file as well as a .bam.bai file.
+align_WT_01.sh. This will create a .bam file as well as a .bam.bai file. These are what one needs to look at the
+alignments in IGV.
+
+## Create Count Tables
+
+We again are going to align reads but limit ourselves to just the read counts for each gene. No need to take up space with .bam files if we are not going to use IGV. The number of reads will
+be a measure of expression of a gene. We also do this for all 6 wild type and mutant replicates. This entails automating
+the counting process. The steps were as follows:
+
+1) Create table from ERP004763_sample_mappings.tsv with columns errnum, techrep,
+type, and biorep using extract_my_samples.awk but making sure the print statements
+do not specify a column.
+
+2) Call make_all_scripts_slurm.awk with the file created in the previous step as an argument
+to create alignment job submission scripts for each biological replicate
+
+3) Create a file called scripts_to_submit.txt with the script names created in the previous step (one name on each line)
+
+4) Call make_master_submit_slurm.awk to create the master submission file
+
+5) The master submission file ensures each alignment is done one after the other to ensure you do not run out of temporary disk space and get corrupted files
+
+6) Create a file called read_count_tables_to_build_table.txt with the ReadsPerGene.out.tab file names (one name on each line)
+
+7) Create the final count table by calling build_count_table.awk with read_count_tables_to_build_table.txt as the argument
+
+## Differential Expression Analysis
+
 
 
 
