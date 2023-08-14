@@ -77,7 +77,8 @@ to create alignment job submission scripts for each biological replicate
 
 ## Differential Expression Analysis
 
-
+The R script DESeq2_script.R uses the R DESeq2 library to do the differential expression analysis. All you need is the
+count table.
 
 
 
